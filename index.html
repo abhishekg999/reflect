@@ -1,3 +1,120 @@
-<script>
-document.write(atob(location.hash.slice(1)));
-</script>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-store">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <title>Reflect</title>
+
+    <style>
+        body {
+            font-family: 'Teko', sans-serif;
+            font-size: 16px;
+            line-height: 1.5;
+            color: #333;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        textarea {
+            width: 80%;
+            height: 200px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: vertical;
+
+            margin: 20px 0;
+        }
+
+     
+
+        .code_syntax {
+            font-size: 12px;
+            width: 80%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            overflow-x: auto;
+            cursor: pointer;
+            color: #000000;
+            background: #ffffff;
+            padding: 15px;
+            border: 1px solid grey;
+            border-radius: 5px;
+        }
+
+        .code_syntax:hover {
+            background: #c4ffb1;
+          
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Reflect HTML</h1>
+
+    <p>Paste your HTML here to generate a link.</p>
+    <textarea id="source" placeholder="Paste your HTML code here"></textarea>
+    <span id="result-span" hidden>Your URL <b><a id="result-link">here</a></b>!</span>
+
+    <h3>Python Usage</h3>
+
+<pre class="code_syntax"
+        onclick="copyPythonToClipboard()"><span class="line_wrapper"><span style="color:#696969; "># Click anywhere to copy!</span></span>
+<span class="line_wrapper"><span style="color:#800000; font-weight:bold; ">from</span> base64 <span style="color:#800000; font-weight:bold; ">import</span> b64encode</span>
+<span class="line_wrapper"></span>
+<span class="line_wrapper"><span style="color:#800000; font-weight:bold; ">def</span> https_host<span style="color:#808030; ">(</span>src<span style="color:#808030; ">:</span> <span style="color:#400000; ">str</span><span style="color:#808030; ">)</span> <span style="color:#44aadd; ">-</span><span style="color:#44aadd; ">&gt;</span> <span style="color:#400000; ">str</span><span style="color:#808030; ">:</span></span>
+<span class="line_wrapper">    <span style="color:#800000; ">"""</span><span style="color:#0000e6; "></span></span>
+<span class="line_wrapper"><span style="color:#0000e6; ">    Example:</span></span>
+<span class="line_wrapper"><span style="color:#0000e6; ">        &gt;&gt;&gt; html_source = "&lt;script&gt;alert('hi!')&lt;/script&gt;"</span></span>
+<span class="line_wrapper"><span style="color:#0000e6; ">        &gt;&gt;&gt; https_host(html_source)</span></span>
+<span class="line_wrapper"><span style="color:#0000e6; ">        'https://reflect.ahh.bet/#PHNjcmlwdD5hbGVydCgnaGkhJyk8L3NjcmlwdD4='</span></span>
+<span class="line_wrapper"><span style="color:#0000e6; ">    </span><span style="color:#800000; ">"""</span></span>
+<span class="line_wrapper">    html <span style="color:#808030; ">=</span> b64encode<span style="color:#808030; ">(</span>src<span style="color:#808030; ">.</span>encode<span style="color:#808030; ">(</span><span style="color:#808030; ">)</span><span style="color:#808030; ">)</span><span style="color:#808030; ">.</span>decode<span style="color:#808030; ">(</span><span style="color:#808030; ">)</span></span>
+<span class="line_wrapper">    <span style="color:#800000; font-weight:bold; ">return</span> <span style="color:#800000; ">f"</span><span style="color:#0000e6; ">https://reflect.ahh.bet/#</span><span style="color:#800000; background:#ffffe8; ">{</span><span style="color:#000000; background:#ffffe8; ">html</span><span style="color:#800000; ">}</span><span style="color:#800000; ">"</span></span>
+</pre>
+    <script>
+        function copyPythonToClipboard() {
+            const source = "ZnJvbSBiYXNlNjQgaW1wb3J0IGI2NGVuY29kZQoKZGVmIGh0dHBzX2hvc3Qoc3JjOiBzdHIpIC0+IHN0cjoKICAgICIiIgogICAgRXhhbXBsZToKICAgICAgICA+Pj4gaHRtbF9zb3VyY2UgPSAiPHNjcmlwdD5hbGVydCgnaGkhJyk8L3NjcmlwdD4iCiAgICAgICAgPj4+IGh0dHBzX2hvc3QoaHRtbF9zb3VyY2UpCiAgICAgICAgJ2h0dHBzOi8vcmVmbGVjdC5haGguYmV0LyNQSE5qY21sd2RENWhiR1Z5ZENnbmFHa2hKeWs4TDNOamNtbHdkRDQ9JwogICAgIiIiCiAgICBodG1sID0gYjY0ZW5jb2RlKHNyYy5lbmNvZGUoKSkuZGVjb2RlKCkKICAgIHJldHVybiBmImh0dHBzOi8vcmVmbGVjdC5haGguYmV0LyN7aHRtbH0iCg==";
+            navigator.clipboard.writeText(atob(source));
+        }
+    </script>
+
+    <script>
+        window.onload = () => {
+            if (location.hash) {
+                document.write(atob(location.hash.slice(1)));
+            } else {
+                document.getElementById('source').addEventListener('input', function () {
+                    const span = document.getElementById('result-span');
+                    const link = document.getElementById('result-link');
+                    if (this.value.trim() === '') {
+                        span.hidden = true;
+                        return;
+                    }
+                    span.hidden = false;
+                    const url = new URL(location.href);
+                    url.hash = btoa(this.value);
+                    link.href = url.href;
+                });
+            }
+        };
+
+    </script>
+</body>
+
+</html>
