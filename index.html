@@ -110,6 +110,8 @@
                     const url = new URL(location.href);
                     url.hash = btoa(this.value);
                     link.href = url.href;
+                    link.target = '_blank';
+                    link.rel = 'noopener noreferrer';
                 });
             }
         };
