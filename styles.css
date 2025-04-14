@@ -1,0 +1,421 @@
+:root {
+    --primary-color: #f97316;
+    --primary-light: #ffedd5;
+    --primary-hover: #ea580c;
+    --bg-color: #fffbf5;
+    --card-bg: #ffffff;
+    --text-color: #334155;
+    --border-color: #fbd38d;
+    --code-bg: #fff7ed;
+    --code-hover: #ffedd5;
+    --success-color: #16a34a;
+    --warning-color: #eab308;
+    --radius-sm: 6px;
+    --radius-md: 8px;
+    --shadow-sm: 0 1px 3px rgba(249, 115, 22, 0.1);
+    --shadow-md: 0 4px 6px -1px rgba(249, 115, 22, 0.1), 0 2px 4px -2px rgba(249, 115, 22, 0.1);
+    --font-mono: 'JetBrains Mono', monospace;
+    --gradient: linear-gradient(135deg, #fb923c, #f97316);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    background-image: radial-gradient(#fdba7430 1px, transparent 1px);
+    background-size: 20px 20px;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 900px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+h1 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: var(--primary-hover);
+    margin-bottom: 0.5rem;
+    text-align: center;
+    position: relative;
+    display: inline-block;
+}
+
+h1::after {
+    content: "";
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background: var(--gradient);
+    border-radius: 2px;
+}
+
+.tagline {
+    color: #64748b;
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+}
+
+p {
+    margin-bottom: 1.25rem;
+    font-size: 1.1rem;
+    text-align: center;
+}
+
+.main-content {
+    background-color: var(--card-bg);
+    padding: 2rem;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-color);
+    margin-bottom: 2rem;
+}
+
+textarea {
+    width: 100%;
+    height: 200px;
+    padding: 16px;
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    resize: vertical;
+    margin: 16px 0 24px;
+    background-color: var(--card-bg);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.2);
+}
+
+#result-span {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    background-color: var(--primary-light);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+    margin-bottom: 24px;
+    width: 100%;
+    gap: 12px;
+    align-items: flex-start;
+}
+
+.result-label {
+    font-weight: 500;
+    color: var(--primary-hover);
+}
+
+.result-url {
+    display: block;
+    width: 100%;
+    padding: 8px 12px;
+    background-color: white;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-color);
+    color: var(--primary-hover);
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.result-url:hover {
+    text-decoration: underline;
+    border-color: var(--primary-color);
+}
+
+.button-group {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+}
+
+.action-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border-radius: var(--radius-sm);
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    text-decoration: none;
+    flex: 1;
+}
+
+.action-btn svg {
+    width: 16px;
+    height: 16px;
+}
+
+.copy-btn {
+    background: var(--gradient);
+    color: white;
+    border: none;
+}
+
+.copy-btn:hover {
+    opacity: 0.9;
+}
+
+.open-btn {
+    background-color: white;
+    color: var(--primary-hover);
+    border: 1px solid var(--border-color);
+}
+
+.open-btn:hover {
+    background-color: var(--primary-light);
+    border-color: var(--primary-color);
+}
+
+#result-span a {
+    color: var(--primary-hover);
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.2s ease;
+    word-break: break-all;
+}
+
+#result-span a:hover {
+    color: var(--primary-color);
+    text-decoration: underline;
+}
+
+.copy-url-btn {
+    background: var(--gradient);
+    color: white;
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 6px 12px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: opacity 0.2s;
+    white-space: nowrap;
+}
+
+.copy-url-btn:hover {
+    opacity: 0.9;
+}
+
+h2, h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 2rem 0 1rem;
+    color: var(--primary-hover);
+    text-align: center;
+}
+
+.section {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background-color: var(--card-bg);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color);
+}
+
+.code_syntax {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    width: 100%;
+    padding: 20px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    background-color: var(--code-bg);
+    overflow-x: auto;
+    cursor: pointer;
+    color: var(--text-color);
+    position: relative;
+    transition: background-color 0.2s ease;
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 1rem;
+}
+
+.code_syntax:hover {
+    background-color: var(--code-hover);
+}
+
+.code_syntax::after {
+    content: "Click to copy";
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    font-size: 0.75rem;
+    color: #64748b;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 2px 8px;
+    border-radius: 4px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.code_syntax:hover::after {
+    opacity: 1;
+}
+
+.notification {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px 16px;
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-md);
+    transform: translateY(100px);
+    opacity: 0;
+    transition: all 0.3s ease;
+    color: white;
+    z-index: 100;
+}
+
+.notification.success {
+    background-color: var(--success-color);
+}
+
+.notification.warning {
+    background-color: var(--warning-color);
+}
+
+.notification.show {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.tabs {
+    display: flex;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    gap: 0.5rem;
+}
+
+.tab {
+    padding: 10px 20px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-bottom: none;
+    background: transparent;
+    border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+    font-weight: 500;
+    color: #64748b;
+    transition: all 0.2s ease;
+}
+
+.tab:hover {
+    color: var(--primary-color);
+}
+
+.tab.active {
+    color: var(--primary-hover);
+    border-color: var(--border-color);
+    background-color: var(--card-bg);
+    margin-bottom: -1px;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.examples-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 1rem 0;
+}
+
+.example-item {
+    padding: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    margin-bottom: 0.8rem;
+    background-color: var(--code-bg);
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.example-item:hover {
+    background-color: var(--code-hover);
+}
+
+.example-item h4 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    color: var(--primary-hover);
+}
+
+.example-item p {
+    margin: 0;
+    font-size: 0.9rem;
+    text-align: left;
+}
+
+footer {
+    margin-top: auto;
+    text-align: center;
+    padding: 1.5rem;
+    font-size: 0.9rem;
+    color: #64748b;
+}
+
+footer a {
+    color: var(--primary-hover);
+    text-decoration: none;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 24px 16px;
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+
+    textarea, .code_syntax {
+        font-size: 0.85rem;
+    }
+    
+    .tabs {
+        flex-wrap: wrap;
+    }
+    
+    .tab {
+        padding: 8px 16px;
+        font-size: 0.9rem;
+    }
+}

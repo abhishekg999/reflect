@@ -1,122 +1,175 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Cache-Control" content="no-store" />
+    <meta
+      name="description"
+      content="Reflect - A simple tool to generate shareable links for HTML code snippets"
+    />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Reflect - Generate Your HTML Link</title>
+  </head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Cache-Control" content="no-store">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
-    <title>Reflect</title>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Reflect HTML</h1>
+        <p class="tagline">Share HTML snippets with simple links</p>
+      </header>
 
-    <style>
-        body {
-            font-family: 'Teko', sans-serif;
-            font-size: 16px;
-            line-height: 1.5;
-            color: #333;
-            background-color: #f5f5f5;
-            margin: 0;
-            padding: 0;
+      <div class="main-content">
+        <div class="tabs">
+          <button class="tab active" data-tab="create">Create Link</button>
+          <button class="tab" data-tab="code">Code Usage</button>
+          <button class="tab" data-tab="examples">Examples</button>
+        </div>
 
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
+        <div id="create-tab" class="tab-content active">
+          <p>Paste your HTML here to generate a shareable link.</p>
+          <textarea
+            id="source"
+            placeholder="Paste your HTML code here"
+          ></textarea>
+          <div id="result-span">
+            <span class="result-label">Your URL:</span>
+            <a id="result-link" class="result-url"></a>
+            <div class="button-group">
+              <button id="copy-url-btn" class="action-btn copy-btn">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path
+                    d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                  ></path>
+                </svg>
+                Copy
+              </button>
+              <a
+                id="open-url-btn"
+                class="action-btn open-btn"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
+                  ></path>
+                  <polyline points="15 3 21 3 21 9"></polyline>
+                  <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+                Open
+              </a>
+            </div>
+          </div>
 
-        textarea {
-            width: 80%;
-            height: 200px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            resize: vertical;
+          <div class="options">
+            <label>
+              <input type="checkbox" id="minify-html" /> Minify HTML
+            </label>
+          </div>
+        </div>
 
-            margin: 20px 0;
-        }
-
-     
-
-        .code_syntax {
-            font-size: 12px;
-            width: 80%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            background-color: #f9f9f9;
-            overflow-x: auto;
-            cursor: pointer;
-            color: #000000;
-            background: #ffffff;
-            padding: 15px;
-            border: 1px solid grey;
-            border-radius: 5px;
-        }
-
-        .code_syntax:hover {
-            background: #c4ffb1;
-          
-        }
-    </style>
-</head>
-
-<body>
-
-    <h1>Reflect HTML</h1>
-
-    <p>Paste your HTML here to generate a link.</p>
-    <textarea id="source" placeholder="Paste your HTML code here"></textarea>
-    <span id="result-span" hidden>Your URL <b><a id="result-link">here</a></b>!</span>
-
-    <h3>Python Usage</h3>
-
-<pre class="code_syntax"
-        onclick="copyPythonToClipboard()"><span class="line_wrapper"><span style="color:#696969; "># Click anywhere to copy!</span></span>
-<span class="line_wrapper"><span style="color:#800000; font-weight:bold; ">from</span> base64 <span style="color:#800000; font-weight:bold; ">import</span> b64encode</span>
+        <div id="code-tab" class="tab-content">
+          <h3>Python Usage</h3>
+          <pre
+            class="code_syntax"
+            onclick="copyPythonToClipboard()"
+          ><span class="line_wrapper"><span style="color:#696969;"># Click anywhere to copy!</span></span>
+<span class="line_wrapper"><span style="color:#800000; font-weight:bold;">from</span> urllib.parse <span style="color:#800000; font-weight:bold;">import</span> quote</span>
 <span class="line_wrapper"></span>
-<span class="line_wrapper"><span style="color:#800000; font-weight:bold; ">def</span> https_host<span style="color:#808030; ">(</span>src<span style="color:#808030; ">:</span> <span style="color:#400000; ">str</span><span style="color:#808030; ">)</span> <span style="color:#44aadd; ">-</span><span style="color:#44aadd; ">&gt;</span> <span style="color:#400000; ">str</span><span style="color:#808030; ">:</span></span>
-<span class="line_wrapper">    <span style="color:#800000; ">"""</span><span style="color:#0000e6; "></span></span>
-<span class="line_wrapper"><span style="color:#0000e6; ">    Example:</span></span>
-<span class="line_wrapper"><span style="color:#0000e6; ">        &gt;&gt;&gt; html_source = "&lt;script&gt;alert('hi!')&lt;/script&gt;"</span></span>
-<span class="line_wrapper"><span style="color:#0000e6; ">        &gt;&gt;&gt; https_host(html_source)</span></span>
-<span class="line_wrapper"><span style="color:#0000e6; ">        'https://reflect.ahh.bet/#PHNjcmlwdD5hbGVydCgnaGkhJyk8L3NjcmlwdD4='</span></span>
-<span class="line_wrapper"><span style="color:#0000e6; ">    </span><span style="color:#800000; ">"""</span></span>
-<span class="line_wrapper">    html <span style="color:#808030; ">=</span> b64encode<span style="color:#808030; ">(</span>src<span style="color:#808030; ">.</span>encode<span style="color:#808030; ">(</span><span style="color:#808030; ">)</span><span style="color:#808030; ">)</span><span style="color:#808030; ">.</span>decode<span style="color:#808030; ">(</span><span style="color:#808030; ">)</span></span>
-<span class="line_wrapper">    <span style="color:#800000; font-weight:bold; ">return</span> <span style="color:#800000; ">f"</span><span style="color:#0000e6; ">https://reflect.ahh.bet/#</span><span style="color:#800000; background:#ffffe8; ">{</span><span style="color:#000000; background:#ffffe8; ">html</span><span style="color:#800000; ">}</span><span style="color:#800000; ">"</span></span>
+<span class="line_wrapper"><span style="color:#800000; font-weight:bold;">def</span> https_host<span style="color:#808030;">(</span>src<span style="color:#808030;">:</span> <span style="color:#400000;">str</span><span style="color:#808030;">)</span> <span style="color:#44aadd;">-</span><span style="color:#44aadd;">&gt;</span> <span style="color:#400000;">str</span><span style="color:#808030;">:</span></span>
+<span class="line_wrapper">    <span style="color:#800000;">"""</span></span>
+<span class="line_wrapper"><span style="color:#0000e6;">    Example:</span></span>
+<span class="line_wrapper"><span style="color:#0000e6;">        &gt;&gt;&gt; html_source = "&lt;script&gt;alert('hi!')&lt;/script&gt;"</span></span>
+<span class="line_wrapper"><span style="color:#0000e6;">        &gt;&gt;&gt; https_host(html_source)</span></span>
+<span class="line_wrapper"><span style="color:#0000e6;">        'https://reflect.ahh.bet/#%3Cscript%3Ealert%28%27hi%21%27%29%3C%2Fscript%3E'</span></span>
+<span class="line_wrapper">    <span style="color:#800000;">"""</span></span>
+<span class="line_wrapper">    html <span style="color:#808030;">=</span> quote(src)</span>
+<span class="line_wrapper">    <span style="color:#800000; font-weight:bold;">return</span> <span style="color:#800000;">f"</span><span style="color:#0000e6;">https://reflect.ahh.bet/#</span><span style="color:#800000; background:#ffffe8;">{</span><span style="color:#000000; background:#ffffe8;">html</span><span style="color:#800000;">}</span><span style="color:#800000;">"</span></span>
 </pre>
-    <script>
-        function copyPythonToClipboard() {
-            const source = "ZnJvbSBiYXNlNjQgaW1wb3J0IGI2NGVuY29kZQoKZGVmIGh0dHBzX2hvc3Qoc3JjOiBzdHIpIC0+IHN0cjoKICAgICIiIgogICAgRXhhbXBsZToKICAgICAgICA+Pj4gaHRtbF9zb3VyY2UgPSAiPHNjcmlwdD5hbGVydCgnaGkhJyk8L3NjcmlwdD4iCiAgICAgICAgPj4+IGh0dHBzX2hvc3QoaHRtbF9zb3VyY2UpCiAgICAgICAgJ2h0dHBzOi8vcmVmbGVjdC5haGguYmV0LyNQSE5qY21sd2RENWhiR1Z5ZENnbmFHa2hKeWs4TDNOamNtbHdkRDQ9JwogICAgIiIiCiAgICBodG1sID0gYjY0ZW5jb2RlKHNyYy5lbmNvZGUoKSkuZGVjb2RlKCkKICAgIHJldHVybiBmImh0dHBzOi8vcmVmbGVjdC5haGguYmV0LyN7aHRtbH0iCg==";
-            navigator.clipboard.writeText(atob(source));
-        }
-    </script>
 
-    <script>
-        window.onload = () => {
-            if (location.hash) {
-                document.write(atob(location.hash.slice(1)));
-            } else {
-                document.getElementById('source').addEventListener('input', function () {
-                    const span = document.getElementById('result-span');
-                    const link = document.getElementById('result-link');
-                    if (this.value.trim() === '') {
-                        span.hidden = true;
-                        return;
-                    }
-                    span.hidden = false;
-                    const url = new URL(location.href);
-                    url.hash = btoa(this.value);
-                    link.href = url.href;
-                    link.target = '_blank';
-                    link.rel = 'noopener noreferrer';
-                });
-            }
-        };
+          <h3>JavaScript Usage</h3>
+          <pre class="code_syntax" onclick="copyJsToClipboard()">
+<span class="line_wrapper"><span style="color:#696969;">// Click anywhere to copy!</span></span>
+<span class="line_wrapper"><span style="color:#800000; font-weight:bold;">function</span> createReflectLink<span style="color:#808030;">(</span>htmlString<span style="color:#808030;">)</span> <span style="color:#800080;">{</span></span>
+<span class="line_wrapper">    <span style="color:#800000; font-weight:bold;">const</span> encodedHtml <span style="color:#808030;">=</span> encodeURIComponent<span style="color:#808030;">(</span>htmlString<span style="color:#808030;">)</span><span style="color:#800080;">;</span></span>
+<span class="line_wrapper">    <span style="color:#800000; font-weight:bold;">return</span> <span style="color:#800000;">`</span><span style="color:#0000e6;">https://reflect.ahh.bet/#</span><span style="color:#800000; background:#ffffe8;">${</span><span style="color:#000000; background:#ffffe8;">encodedHtml</span><span style="color:#800000;">}</span><span style="color:#800000;">`</span><span style="color:#800080;">;</span></span>
+<span class="line_wrapper"><span style="color:#800080;">}</span></span>
+</pre>
+        </div>
 
-    </script>
-</body>
+        <div id="examples-tab" class="tab-content">
+          <p>Click on any example to load it into the editor.</p>
+          <ul class="examples-list">
+            <li
+              class="example-item"
+              data-html="<h1>Hello World</h1><p>This is a simple example.</p>"
+            >
+              <h4>Basic HTML</h4>
+              <p>A simple heading and paragraph</p>
+            </li>
+            <li
+              class="example-item"
+              data-html="<div style='background-color: #f0f0f0; padding: 20px; border-radius: 10px;'><h2 style='color: #ff6600;'>Styled Content</h2><p>This has inline CSS applied to it.</p></div>"
+            >
+              <h4>Styled Content</h4>
+              <p>HTML with inline CSS styling</p>
+            </li>
+            <li
+              class="example-item"
+              data-html="<button onclick='alert(&quot;Button clicked!&quot;)'>Click Me</button>"
+            >
+              <h4>Interactive Button</h4>
+              <p>Button with JavaScript alert</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
 
+    <footer>
+      <p>
+        <a
+          href="https://github.com/abhishekg999/reflect"
+          target="_blank"
+          rel="noopener noreferrer"
+          >GitHub</a
+        >
+      </p>
+    </footer>
+
+    <div id="notification" class="notification">Copied to clipboard!</div>
+    <script src="script.js"></script>
+  </body>
 </html>
