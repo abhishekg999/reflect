@@ -37,8 +37,7 @@ function showNotification(message, type = "success") {
   }, 2000);
 }
 
-function copyPythonToClipboard() {
-  const pythonCode = `
+const PYTHON_CODE = `
 from urllib.parse import quote
 
 def https_host(src: str) -> str:
@@ -49,24 +48,28 @@ def https_host(src: str) -> str:
       'https:
   """
   html = quote(src)
-  return f"https:
+  return f"https://reflect.ahh.bet/#{html}"
 `.trim();
-  navigator.clipboard.writeText(pythonCode);
+
+function copyPythonToClipboard() {
+  navigator.clipboard.writeText(PYTHON_CODE);
   showNotification("Python code copied to clipboard!");
 }
 
-function copyJsToClipboard() {
-  const jsCode = `
-function createReflectLink(htmlString) {
-  const encodedHtml = encodeURIComponent(htmlString);
-  return \`https:
+const JS_CODE = `
+function createReflectLink(src) {
+  const html = encodeURIComponent(src);
+  return \`https://reflect.ahh.bet/#\${html}\`;
 }
 `.trim();
-  navigator.clipboard.writeText(jsCode);
+
+function copyJsToClipboard() {
+  navigator.clipboard.writeText(JS_CODE);
   showNotification("JavaScript code copied to clipboard!");
 }
 
 function minifyHTML(html) {
+  // TODO: actually minify
   return html
     .replace(/\n/g, " ")
     .replace(/[\t ]+/g, " ")
