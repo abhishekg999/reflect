@@ -43,9 +43,9 @@ from urllib.parse import quote
 def https_host(src: str) -> str:
   """
   Example:
-      >>> html_source = "&lt;script&gt;alert('hi!')&lt;/script&gt;"
+      >>> html_source = "<script>alert('hi!')</script>"
       >>> https_host(html_source)
-      'https:
+      'https://reflect.ahh.bet/#%3Cscript%3Ealert%28%27hi%21%27%29%3C/script%3E'
   """
   html = quote(src)
   return f"https://reflect.ahh.bet/#{html}"
